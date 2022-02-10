@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.GrappleHookSystemPlugin.cpp.obj": [
+			"DGrappleGun.cpp.obj",
+			"GrappleHookSystemPlugin.cpp.obj"
+		],
+		"Module.GrappleHookSystemPlugin.gen.cpp.obj": [
+			"DGrappleGun.gen.cpp.obj",
+			"GrappleHookSystemPlugin.init.gen.cpp.obj"
+		]
+	}
+}
