@@ -4,8 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
 #include "DGrappleGun.generated.h"
 
+class UArrowComponent;
+class UPhysicsHandleComponent;
 class ADGrappleHook;
 UCLASS()
 class GRAPPLEHOOKSYSTEMPLUGIN_API ADGrappleGun : public AActor
@@ -17,17 +20,37 @@ public:
 	ADGrappleGun();
 
 protected:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	USkeletalMeshComponent* GrappleGunMesh;
 
-	UPROPERTY(EditDefaultsOnly)
-	ADGrappleHook* GrappleHook;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TSubclassOf<AActor> GrappleHookClass;
+
+	UPROPERTY()
+	AActor* GrappleHook;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	FName GrappleHookSocket;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPhysicsHandleComponent* GrappleGunPhysicsHandle;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UArrowComponent* PhysicsHandleGrabTransform;
+
+	UPROPERTY()
+	bool bIsGrappleHookAttached = false;
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void SpawnGrappleHook();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	void AttachSelfToParent(USceneComponent* InParent,  FName InSocketName = NAME_None);
 
 };

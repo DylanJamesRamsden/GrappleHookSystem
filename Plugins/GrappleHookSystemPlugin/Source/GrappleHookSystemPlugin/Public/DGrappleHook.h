@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
 #include "DGrappleHook.generated.h"
 
+class UPhysicsHandleComponent;
 UCLASS()
 class GRAPPLEHOOKSYSTEMPLUGIN_API ADGrappleHook : public AActor
 {
@@ -16,8 +18,14 @@ public:
 	ADGrappleHook();
 
 protected:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* GrappleHookMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPhysicsHandleComponent* GrappleHookPhysicsHandle;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	USceneComponent* PhysicsHandleGrabTransform;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
